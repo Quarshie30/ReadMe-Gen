@@ -74,7 +74,7 @@ function writeToFile(fileName, data) {
         fs.writeFile(fileName, data, err => {
             if (err) {
             } else {
-                resolve('Readme.md created');
+                resolve('ReadMe.md created');
             }
         });
     });
@@ -82,7 +82,16 @@ function writeToFile(fileName, data) {
 
 // function to initialize program
 function init() {
-
+    try {
+        console.log('Provide the following information:');
+        const userData = await inquirer.createPrompt(questions);
+        const markdownContent = generateMarkdown(UserData);
+        const outputPath = path.join(_ _dirname, 'ReadMe.md');
+        await writeToFile(outputPath, markdownContent);
+        console.log('ReadMe.md created!');
+    } catch (error) {
+        console.error('An error has occured:', error);
+    }
 }
 
 // function call to initialize program
