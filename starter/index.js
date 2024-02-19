@@ -84,8 +84,8 @@ function writeToFile(fileName, data) {
 function init() {
     try {
         console.log('Provide the following information:');
-        const userData = await inquirer.createPrompt(questions);
-        const markdownContent = generateMarkdown(UserData);
+        const userData = await inquirer.prompt(questions);
+        const markdownContent = generateMarkdown(userData);
         const outputPath = path.join(_ _dirname, 'ReadMe.md');
         await writeToFile(outputPath, markdownContent);
         console.log('ReadMe.md created!');
