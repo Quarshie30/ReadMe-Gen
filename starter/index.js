@@ -8,64 +8,49 @@ const questions = [
     {
         type: 'input',
         name: 'Title',
-        message: 'Whats the title of your project?'
-
+        message: 'What\'s the title of your project?'
     },
     {
         type: 'input',
         name: 'Description',
         message: 'Type in a description of your project:'
     },
-
     {
         type: 'input',
         name: 'Installation',
-        message: 'Enter Installion Process'
-
+        message: 'Enter installation process:'
     },
-
-    {
-        type: 'input',
-        name: '',
-        message: ''
-    },
-
     {
         type: 'input',
         name: 'Usage',
-        message: 'Enter usage information'
+        message: 'Enter usage information:'
     },
-
     {
-        type: 'List',
+        type: 'list',
         name: 'License',
-        message: 'Choose a License for your project'
-    choices: ['MIT, 'GPL 3.0', 'BSD 3', 'Eclipse Public License 2.0', 'None',]
-},
-
+        message: 'Choose a License for your project:',
+        choices: ['MIT', 'GPL 3.0', 'BSD 3', 'Eclipse Public License 2.0', 'None']
+    },
     {
         type: 'input',
-        name: 'Contribution guidelines:',
-        message: ''
+        name: 'Contribution guidelines',
+        message: 'Enter contribution guidelines:'
     },
-
     {
         type: 'input',
         name: 'Tests',
-        message: 'Enter test process'
+        message: 'Enter test process:'
     },
-
     {
         type: 'input',
         name: 'Github',
         message: 'Enter Github username:'
     },
-
     {
         type: 'input',
         name: 'Email',
         message: 'Enter email address:'
-    },
+    }
 ];
 
 // function to write README file
@@ -73,24 +58,25 @@ function writeToFile(fileName, data) {
     return new Promise((resolve, reject) => {
         fs.writeFile(fileName, data, err => {
             if (err) {
+                reject(err);
             } else {
-                resolve('ReadMe.md created');
+                resolve('README.md created successfully!');
             }
         });
     });
 }
 
 // function to initialize program
-function init() {
+async function init() {
     try {
         console.log('Provide the following information:');
         const userData = await inquirer.prompt(questions);
         const markdownContent = generateMarkdown(userData);
-        const outputPath = path.join(_ _dirname, 'ReadMe.md');
+        const outputPath = path.join(__dirname, 'ReadMe.md');
         await writeToFile(outputPath, markdownContent);
         console.log('ReadMe.md created!');
     } catch (error) {
-        console.error('An error has occured:', error);
+        console.error('An error has occurred:', error);
     }
 }
 
