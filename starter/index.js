@@ -67,18 +67,22 @@ function writeToFile(fileName, data) {
 }
 
 // function to initialize program
-async function init() {
-    try {
-        console.log('Provide the following information:');
-        const userData = await inquirer.prompt(questions);
-        const markdownContent = generateMarkdown(userData);
-        const outputPath = path.join(__dirname, 'ReadMe.md');
-        await writeToFile(outputPath, markdownContent);
-        console.log('ReadMe.md created!');
-    } catch (error) {
-        console.error('An error has occurred:', error);
-    }
+function init() {
+    console.log('Provide the following information:');
+    inquirer.prompt(questions)
+        .then(userData => {
+            const markdownContent = generateMarkdown(userData);
+            const outputPath = path.join(__dirname, 'ReadMe.md');
+            return writeToFile(outputPath, markdownContent);
+        })
+        .then(message => {
+            console.log(message);
+        })
+        .catch(error => {
+            console.error('An error has occurred:', error);
+        });
 }
+
 
 // function call to initialize program
 init();
